@@ -1,9 +1,7 @@
 package org.example;
 
-import org.example.buyer.Buyer;
 import java.sql.*;
 import java.util.Scanner;
-import java.util.concurrent.atomic.AtomicInteger;
 
 public class Account {
 
@@ -37,21 +35,16 @@ public class Account {
         }
         scanner.close();
     }
-    private static AtomicInteger ID_GENERATOR = new AtomicInteger(1000);
     private static void register(Scanner scanner) {
         try (Connection connection = MyJDBC.getConnection();
-             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO users (id, username, password,role) VALUES (?,?, ?, ?)")) {
+             PreparedStatement preparedStatement = connection.prepareStatement("INSERT INTO users (username, password,role) VALUES ( ?, ?,?)")) {
             System.out.println("Enter username:");
             String username = scanner.next();
             System.out.println("Enter password:");
             String password = scanner.next();
-            System.out.println("Enter role (director/managee/worker):");
-            String role = scanner.next();
-            int id = ID_GENERATOR.getAndIncrement();
-            preparedStatement.setInt(1,id);
-            preparedStatement.setString(2, username);
-            preparedStatement.setString(3, password);
-            preparedStatement.setString(4, role);
+            preparedStatement.setString(1, username);
+            preparedStatement.setString(2, password);
+            preparedStatement.setString(3, "customer");
 
             int result = preparedStatement.executeUpdate();
             if (result > 0) {
@@ -63,12 +56,6 @@ public class Account {
             System.out.println("Error during registration: " + e.getMessage());
         }
     }
-    private static final String plans="";
-    public static void showplans(){
-        System.out.println(plans);
-    }
-
-
     private static void login(Scanner scanner) {
         Connection connection = null;
         PreparedStatement preparedStatement = null;
@@ -92,17 +79,13 @@ public class Account {
                 String role = resultSet.getString("role");
                 System.out.println("Login successful!");
                 switch (role) {
-                    case "director":
-                        Admin admin = new Admin(username, password);
-                        admin.displayOptions();
-                        break;
                     case "manager":
-                        Master master = new Master(username, password);
-                        master.displayOptions();
+                        Manager manager = new Manager(username, password);
+                        manager.displayOptions();
                         break;
-                    case "worker":
-                        Buyer buyer = new Buyer(username, password);
-                        buyer.displayOptions();
+                    case "customer":
+                        Customer customer = new Customer(username, password);
+                        customer.displayOptions();
                         break;
                     default:
                         System.out.println("No role-specific options available.");

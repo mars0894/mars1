@@ -1011,7 +1011,7 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
     </schema>
     <schema id="293" parent="1" name="mars">
       <Current>1</Current>
-      <LastIntrospectionLocalTimestamp>2024-05-20.12:05:57</LastIntrospectionLocalTimestamp>
+      <LastIntrospectionLocalTimestamp>2024-05-21.17:52:54</LastIntrospectionLocalTimestamp>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </schema>
     <user id="294" parent="1" name="mysql.infoschema">
@@ -1037,49 +1037,109 @@ sys|schema||mysql.sys|localhost|TRIGGER|G</Grants>
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <table id="299" parent="293" name="users">
+    <table id="299" parent="293" name="customer_product">
       <Engine>InnoDB</Engine>
       <CollationName>utf8mb4_0900_ai_ci</CollationName>
     </table>
-    <column id="300" parent="298" name="buildingname">
+    <table id="300" parent="293" name="products">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <table id="301" parent="293" name="users">
+      <Engine>InnoDB</Engine>
+      <CollationName>utf8mb4_0900_ai_ci</CollationName>
+    </table>
+    <column id="302" parent="298" name="buildingname">
       <DasType>varchar(255)|0s</DasType>
       <Position>1</Position>
     </column>
-    <column id="301" parent="298" name="cost">
+    <column id="303" parent="298" name="cost">
       <DasType>int|0s</DasType>
       <Position>2</Position>
     </column>
-    <column id="302" parent="299" name="id">
-      <AutoIncrement>1003</AutoIncrement>
+    <column id="304" parent="299" name="customer_id">
       <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>1</Position>
     </column>
-    <column id="303" parent="299" name="username">
+    <foreign-key id="305" parent="299" name="product_id">
+      <ColNames>customer_id</ColNames>
+      <RefColNames>id</RefColNames>
+      <RefTableName>products</RefTableName>
+    </foreign-key>
+    <index id="306" parent="299" name="PRIMARY">
+      <ColNames>customer_id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="307" parent="299" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <column id="308" parent="300" name="name">
       <DasType>varchar(255)|0s</DasType>
+      <Position>1</Position>
+    </column>
+    <column id="309" parent="300" name="id">
+      <AutoIncrement>1</AutoIncrement>
+      <DasType>int|0s</DasType>
       <NotNull>1</NotNull>
       <Position>2</Position>
     </column>
-    <column id="304" parent="299" name="password">
+    <column id="310" parent="300" name="description">
       <DasType>varchar(255)|0s</DasType>
-      <NotNull>1</NotNull>
       <Position>3</Position>
     </column>
-    <column id="305" parent="299" name="role">
-      <DasType>varchar(255)|0s</DasType>
-      <NotNull>1</NotNull>
+    <column id="311" parent="300" name="price">
+      <DasType>double|0s</DasType>
       <Position>4</Position>
     </column>
-    <column id="306" parent="299" name="salary">
-      <DasType>int|0s</DasType>
+    <column id="312" parent="300" name="period">
+      <DasType>varchar(255)|0s</DasType>
       <Position>5</Position>
     </column>
-    <index id="307" parent="299" name="PRIMARY">
+    <index id="313" parent="300" name="PRIMARY">
       <ColNames>id</ColNames>
       <Type>btree</Type>
       <Unique>1</Unique>
     </index>
-    <key id="308" parent="299" name="PRIMARY">
+    <key id="314" parent="300" name="PRIMARY">
+      <NameSurrogate>1</NameSurrogate>
+      <Primary>1</Primary>
+      <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
+    </key>
+    <column id="315" parent="301" name="id">
+      <AutoIncrement>1008</AutoIncrement>
+      <DasType>int|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>1</Position>
+    </column>
+    <column id="316" parent="301" name="username">
+      <DasType>varchar(255)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>2</Position>
+    </column>
+    <column id="317" parent="301" name="password">
+      <DasType>varchar(255)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>3</Position>
+    </column>
+    <column id="318" parent="301" name="role">
+      <DasType>varchar(255)|0s</DasType>
+      <NotNull>1</NotNull>
+      <Position>4</Position>
+    </column>
+    <column id="319" parent="301" name="isOverseer">
+      <DasType>tinyint(1)|0s</DasType>
+      <Position>5</Position>
+    </column>
+    <index id="320" parent="301" name="PRIMARY">
+      <ColNames>id</ColNames>
+      <Type>btree</Type>
+      <Unique>1</Unique>
+    </index>
+    <key id="321" parent="301" name="PRIMARY">
       <NameSurrogate>1</NameSurrogate>
       <Primary>1</Primary>
       <UnderlyingIndexName>PRIMARY</UnderlyingIndexName>
